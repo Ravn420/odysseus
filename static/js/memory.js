@@ -320,14 +320,14 @@ function reflectMemoryToggleInSidebar(enabled) {
   document.body.classList.toggle('memory-disabled', !enabled);
   if (!enabled) document.getElementById('synapse-canvas')?.remove();
   window.dispatchEvent(new CustomEvent('memory-visual-state', { detail: { enabled } }));
-  ['tool-memory-btn', 'rail-memory'].forEach(id => {
+  ['sidebar-memory-btn', 'rail-memory'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.classList.toggle('tool-disabled', !enabled);
   });
 }
 
 function reflectSkillsToggleInSidebar(enabled) {
-  ['tool-skills-btn', 'rail-skills'].forEach(id => {
+  ['sidebar-skills-btn', 'rail-skills'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn) btn.classList.toggle('tool-disabled', !enabled);
   });

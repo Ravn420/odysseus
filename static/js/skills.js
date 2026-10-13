@@ -191,7 +191,7 @@ export function openSkill(name) {
   const targetName = _decodeSkillAnchorName(name);
   _pendingFocusSkill = targetName || null;
   _resetSkillDeepLinkFilters();
-  const skillsBtn = document.getElementById('tool-skills-btn');
+  const skillsBtn = document.getElementById('sidebar-skills-btn');
   if (skillsBtn) skillsBtn.click();
   setTimeout(() => {
     const tab = document.querySelector('.memory-tab[data-memory-tab="skills"]');

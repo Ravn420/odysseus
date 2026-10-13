@@ -1839,7 +1839,7 @@ function _activateEntityAnchor(e, forcedAnchor = null) {
     } else if (panel === 'documents') {
       document.getElementById('tool-library-btn')?.click();
     } else if (panel === 'skills') {
-      document.getElementById('tool-skills-btn')?.click();
+      document.getElementById('sidebar-skills-btn')?.click();
     } else if (panel === 'research') {
         import('./research/panel.js?v=20260913researchrailerrors1').then(mod => {
         const open = mod.openPanel || (mod.default && mod.default.openPanel);

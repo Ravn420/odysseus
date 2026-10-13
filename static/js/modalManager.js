@@ -1419,7 +1419,7 @@ const _AUTO_WIRE = {
   'gallery-modal':        { rail: 'rail-gallery',   sidebar: 'tool-gallery-btn' },
   'tasks-modal':          { rail: 'rail-tasks',     sidebar: 'tool-tasks-btn' },
   'doclib-modal':         { rail: 'rail-archive',   sidebar: 'tool-library-btn' },
-  'memory-modal':         { rail: null,             sidebar: 'tool-memory-btn' },
+  'memory-modal':         { rail: null,             sidebar: 'sidebar-memory-btn' },
   'notes-panel':          { rail: 'rail-notes',     sidebar: 'tool-notes-btn' },
   // Email already has its own #email-unread-dot inline next to the title —
   // don't add a second modalManager badge that lands at the right edge.
@@ -1570,4 +1570,5 @@ document.addEventListener('click', (e) => {
   }
 }, true);
 
+export { _bringToFront };
 export default { register, unregister, isRegistered, isMinimized, minimize, restore, toggle, close, injectMinimizeButton };

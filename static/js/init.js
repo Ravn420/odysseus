@@ -1,5 +1,5 @@
 // Odysseus UI — Initialization Scripts
-// ES6 module — extracted from index.html inline scripts
+// ES6 module
 
 import Storage from './storage.js';
 import { _bringToFront } from './modalManager.js';
@@ -52,6 +52,45 @@ document.addEventListener('DOMContentLoaded', markComposerUserEdited, { once: tr
 // wipe localStorage + sessionStorage so the new account doesn't inherit
 // the previous user's last session id, last-used model, draft chat input,
 // or cached lists. The settings-tab Logout button already wipes on
+// Sidebar button handlers — defined outside async block so they always attach
+const openMemoryModal = () => {
+  const memoryModal = document.getElementById('memory-modal');
+  if (memoryModal) {
+    memoryModal.classList.remove('hidden');
+    memoryModal.querySelector('.memory-tab[data-memory-tab="browse"]')?.click();
+    _bringToFront(memoryModal);
+  }
+};
+
+const openSkillsModal = () => {
+  const memoryModal = document.getElementById('memory-modal');
+  if (memoryModal) {
+    memoryModal.classList.remove('hidden');
+    memoryModal.querySelector('.memory-tab[data-memory-tab="skills"]')?.click();
+    _bringToFront(memoryModal);
+  }
+};
+
+// Attach sidebar button event listeners immediately (outside async auth block)
+const memoryBtn = document.getElementById('sidebar-memory-btn');
+const skillsBtn = document.getElementById('sidebar-skills-btn');
+
+memoryBtn?.addEventListener('click', openMemoryModal);
+memoryBtn?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openMemoryModal();
+  }
+});
+
+skillsBtn?.addEventListener('click', openSkillsModal);
+skillsBtn?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openSkillsModal();
+  }
+});
+
 // explicit logout; this catches the cases where a different user signs
 // in without the previous one logging out cleanly.
 (async () => {
@@ -91,27 +130,11 @@ document.addEventListener('DOMContentLoaded', markComposerUserEdited, { once: tr
       hideOn('#overflow-doc-btn, #tool-doc-btn', privs.can_use_documents);
       // Research — sidebar tool + the in-input deep-research toggle.
       hideOn('#tool-research-btn, #research-toggle-btn', privs.can_use_research);
-      // Memory & skills (rail/tool button only — UI/API entry).
-      hideOn('#tool-memory-btn, #rail-memory, #tool-skills-btn, #rail-skills, #sidebar-memory-btn, #sidebar-skills-btn', privs.can_manage_memory);
+      // Memory & skills (sidebar buttons).
+      hideOn('#sidebar-memory-btn, #rail-memory', privs.can_manage_memory);
+      // Ensure Skills button is always visible
+      document.getElementById('sidebar-skills-btn')?.style.removeProperty('display');
 
-      // Add event listeners for the new sidebar memory and skills buttons
-      document.getElementById('sidebar-memory-btn')?.addEventListener('click', () => {
-        const memoryModal = document.getElementById('memory-modal');
-        if (memoryModal) {
-          memoryModal.classList.remove('hidden');
-          memoryModal.querySelector('.memory-tab[data-memory-tab="browse"]').click();
-          _bringToFront(memoryModal);
-        }
-      });
-
-      document.getElementById('sidebar-skills-btn')?.addEventListener('click', () => {
-        const memoryModal = document.getElementById('memory-modal');
-        if (memoryModal) {
-          memoryModal.classList.remove('hidden');
-          memoryModal.querySelector('.memory-tab[data-memory-tab="skills"]').click();
-          _bringToFront(memoryModal);
-        }
-      });
       // Agent mode toggle — force chat mode by hiding the Agent toggle button.
       if (privs.can_use_agent === false) {
         const _agent = document.getElementById('mode-agent-btn');
@@ -130,7 +153,7 @@ document.addEventListener('DOMContentLoaded', markComposerUserEdited, { once: tr
           // Re-apply privilege gates
           hideOn('#overflow-doc-btn, #tool-doc-btn', newPrivs.can_use_documents);
           hideOn('#tool-research-btn, #research-toggle-btn', newPrivs.can_use_research);
-          hideOn('#tool-memory-btn, #rail-memory, #tool-skills-btn, #rail-skills', newPrivs.can_manage_memory);
+          hideOn('#sidebar-memory-btn, #rail-memory', newPrivs.can_manage_memory);
           
           if (newPrivs.can_use_agent === false) {
             const _agent = document.getElementById('mode-agent-btn');
@@ -458,3 +481,5 @@ document.addEventListener('DOMContentLoaded', markComposerUserEdited, { once: tr
   else window.addEventListener('load', release);
   setTimeout(release, 1200);  // hard fallback — never leave the splash hidden
 })();
+
+// Event listeners for Memory & Skills sidebar buttons are handled in the privilege check block above

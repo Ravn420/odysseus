@@ -226,7 +226,7 @@ export function handleUIControl(uiData) {
       } else if (panel === 'memories' || panel === 'skills' || panel === 'settings') {
         // These live in the sidebar / settings drawer — most just need
         // an existing button click.
-        var ids = { memories: 'tool-memory-btn', skills: 'tool-skills-btn', settings: 'open-settings-btn' };
+        var ids = { memories: 'sidebar-memory-btn', skills: 'sidebar-skills-btn', settings: 'open-settings-btn' };
         var btn = document.getElementById(ids[panel]);
         if (panel === 'settings') {
           import('./settings.js?v=20260912writingstyle3').then(function(mod) {

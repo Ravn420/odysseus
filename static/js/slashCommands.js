@@ -1377,10 +1377,10 @@ async function _cmdOpen(args, ctx) {
       documents: ['tool-library-btn', 'rail-archive'],
       docs: ['tool-library-btn', 'rail-archive'],
       archive: ['tool-library-btn', 'rail-archive'],
-      brain: ['tool-memory-btn', 'rail-memory'],
-      memory: ['tool-memory-btn', 'rail-memory'],
-      memories: ['tool-memory-btn', 'rail-memory'],
-      skills: ['tool-skills-btn', 'rail-skills'],
+      brain: ['sidebar-memory-btn', 'rail-memory'],
+      memory: ['sidebar-memory-btn', 'rail-memory'],
+      memories: ['sidebar-memory-btn', 'rail-memory'],
+      skills: ['sidebar-skills-btn', 'rail-skills'],
       research: ['tool-research-btn', 'rail-research'],
       compare: ['tool-compare-btn', 'rail-compare'],
       theme: ['tool-theme-btn', 'rail-theme'],
@@ -3988,7 +3988,7 @@ async function _cmdTourBrain(args, ctx) {
 
   let modal = document.getElementById('memory-modal');
   if (!modal || modal.classList.contains('hidden')) {
-    const opener = document.getElementById('tool-memory-btn') || document.getElementById('rail-memory');
+    const opener = document.getElementById('sidebar-memory-btn') || document.getElementById('rail-memory');
     if (opener) opener.click();
     for (let i = 0; i < 25; i++) {
       await new Promise(r => setTimeout(r, 80));
